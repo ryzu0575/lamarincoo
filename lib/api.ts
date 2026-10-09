@@ -20,16 +20,19 @@ export function getIp(req: Request) {
   return req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.headers.get("x-real-ip") || "local";
 }
 
-/** Pembungkus route: rate limit + penanganan error seragam. */
 export async function handle(req: Request, fn: () => Promise<unknown>) {
   if (!rateLimit(getIp(req))) {
     return NextResponse.json({ error: "Terlalu banyak permintaan. Tunggu sebentar lalu coba lagi." }, { status: 429 });
   }
   try {
     return NextResponse.json(await fn());
-  } catch (e) {
-    if (e instanceof AIError) return NextResponse.json({ error: e.message }, { status: e.status });
-    console.error(e);
-    return NextResponse.json({ error: "Terjadi kesalahan tak terduga di server." }, { status: 500 });
+  } catch (e: unknown) {
+    if (e instanceof AIError || (e && typeof e === "object" && "status" in e && "message" in e)) {
+      const err = e as { message: string; status?: number };
+      return NextResponse.json({ error: err.message }, { status: err.status || 500 });
+    }
+    console.error("API error:", e);
+    const msg = e instanceof Error ? e.message : "Terjadi kesalahan tak terduga di server.";
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

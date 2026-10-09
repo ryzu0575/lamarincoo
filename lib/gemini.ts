@@ -34,13 +34,13 @@ function mapError(e: unknown): AIError {
   if (/timeout|timed out|aborted/i.test(msg)) {
     return new AIError("Proses AI terlalu lama (timeout). Coba lagi atau gunakan dokumen yang lebih singkat.", 504);
   }
-  if (/API key|PERMISSION_DENIED|UNAUTHENTICATED|401|403/i.test(msg)) {
-    return new AIError("API key Gemini tidak valid atau tidak punya izin.", 500);
+  if (/API key|PERMISSION_DENIED|UNAUTHENTICATED|ACCESS_TOKEN_TYPE_UNSUPPORTED|401|403/i.test(msg)) {
+    return new AIError("API key Gemini tidak valid atau sudah kedaluwarsa. Pastikan membuat API key permanen di https://aistudio.google.com/apikey (diawali dengan 'AIzaSy...').", 401);
   }
   if (/SAFETY|blocked/i.test(msg)) {
     return new AIError("Permintaan diblokir oleh filter keamanan AI. Periksa isi dokumen Anda.", 422);
   }
-  return new AIError("Terjadi kesalahan pada layanan AI. Silakan coba lagi.", 502);
+  return new AIError(msg.length < 150 ? msg : "Terjadi kesalahan pada layanan AI. Silakan coba lagi.", 502);
 }
 
 function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
