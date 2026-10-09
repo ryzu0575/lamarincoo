@@ -5,26 +5,19 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { t } from "@/lib/i18n";
-import { KEYS, useLocalStorage } from "@/lib/storage";
 
 const copy = t();
 const links = [
   { href: "/review-cv", label: copy.nav.review, color: "bg-lavender", hover: "hover:bg-lavender" },
   { href: "/buat-cv", label: copy.nav.builder, color: "bg-mint", hover: "hover:bg-mint" },
   { href: "/surat-lamaran", label: copy.nav.letter, color: "bg-peach", hover: "hover:bg-peach" },
+  { href: "/interview", label: "Tanya AI Interview 🎙️", color: "bg-sky", hover: "hover:bg-sky" },
   { href: "/tips", label: copy.nav.tips, color: "bg-lemon", hover: "hover:bg-lemon" },
 ];
 
 export default function Navbar() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useLocalStorage<string>(KEYS.theme, "light");
-
-  const toggleTheme = () => {
-    const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
-    document.documentElement.classList.toggle("dark", next === "dark");
-    setTheme(next);
-  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
@@ -48,15 +41,6 @@ export default function Navbar() {
               </li>
             );
           })}
-          <li>
-            <button
-              onClick={toggleTheme}
-              aria-label={theme === "dark" ? "Aktifkan mode terang" : "Aktifkan mode gelap"}
-              className="ml-2 rounded-full border border-line bg-surface px-3 py-2 text-sm transition-transform hover:scale-105"
-            >
-              {theme === "dark" ? "☀️" : "🌙"}
-            </button>
-          </li>
         </ul>
 
         <button
@@ -85,11 +69,6 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            <li>
-              <button onClick={toggleTheme} className="py-3 text-base font-semibold">
-                {theme === "dark" ? "☀️ Mode terang" : "🌙 Mode gelap"}
-              </button>
-            </li>
           </motion.ul>
         )}
       </AnimatePresence>

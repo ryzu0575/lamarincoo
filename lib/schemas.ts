@@ -120,4 +120,10 @@ export type Letter = z.infer<typeof LetterSchema>;
 
 export const ParagraphSchema = z.object({ paragraph: z.string() });
 
+export const InterviewChatSchema = z.object({
+  reply: z.string().describe("Tanggapan lengkap, terstruktur, ramah, dan solutif dalam format Markdown."),
+  suggestions: z.array(z.string()).max(4).describe("2 hingga 4 saran pertanyaan lanjutan yang relevan untuk diklik pengguna."),
+});
+export type InterviewChatResponse = z.infer<typeof InterviewChatSchema>;
+
 export const clamp = (n: number) => Math.max(0, Math.min(100, Math.round(Number.isFinite(n) ? n : 0)));

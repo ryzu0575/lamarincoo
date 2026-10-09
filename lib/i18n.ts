@@ -5,7 +5,7 @@
 export const dictionaries = {
   id: {
     brand: "Lamarin",
-    nav: { review: "Review CV", builder: "Buat CV", letter: "Surat Lamaran", tips: "Tips" },
+    nav: { review: "Review CV", builder: "Buat CV", letter: "Surat Lamaran", interview: "Tanya AI Interview", tips: "Tips CV" },
     footer: { made: "Dibuat oleh RYO", privacy: "Privasi" },
     disclaimer:
       "Hasil AI adalah masukan, bukan jaminan lolos seleksi. Selalu periksa kembali sebelum mengirim lamaran.",

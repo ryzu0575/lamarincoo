@@ -4,39 +4,37 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
+import FloatingChatWidget from "@/components/FloatingChatWidget";
 
 const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], display: "swap" });
 const sora = Sora({ variable: "--font-sora", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "Lamarin — Asisten Karier Berbasis AI", template: "%s · Lamarin" },
+  title: { default: "Lamarin — Asisten Karier & Interview Berbasis AI", template: "%s · Lamarin" },
   description:
-    "Review CV, buat CV ATS-friendly, serta review dan buat surat lamaran kerja dengan AI. Gratis, tanpa login, untuk pasar kerja Indonesia.",
-  keywords: ["review CV", "CV ATS", "surat lamaran kerja", "AI karier", "Lamarin"],
+    "Review CV, buat CV ATS-friendly, review dan buat surat lamaran kerja, serta tanya tips & simulasi interview kerja dengan AI. Gratis, tanpa login, untuk pasar kerja Indonesia.",
+  keywords: ["review CV", "CV ATS", "surat lamaran kerja", "interview kerja", "tips interview", "AI karier", "Lamarin"],
   openGraph: {
-    title: "Lamarin — Asisten Karier Berbasis AI",
-    description: "Review CV, buat CV ATS-friendly, dan surat lamaran dengan AI.",
+    title: "Lamarin — Asisten Karier & Interview Berbasis AI",
+    description: "Review CV, buat CV ATS-friendly, surat lamaran, dan tips lolos interview kerja dengan AI.",
     locale: "id_ID",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fffaf3" },
-    { media: "(prefers-color-scheme: dark)", color: "#14172a" },
-  ],
+  themeColor: "#0f1222",
 };
 
-const themeScript = `try{var t=localStorage.getItem('lamarin:theme');if(t==='"dark"'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}`;
+const forceDarkScript = `document.documentElement.classList.add('dark');try{localStorage.setItem('lamarin:theme','"dark"')}catch(e){}`;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" className={`${jakarta.variable} ${sora.variable}`} suppressHydrationWarning>
+    <html lang="id" className={`dark ${jakarta.variable} ${sora.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: forceDarkScript }} />
       </head>
-      <body className="flex min-h-screen flex-col antialiased">
+      <body className="flex min-h-screen flex-col antialiased bg-bg text-ink">
         <a
           href="#konten"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-surface focus:px-4 focus:py-2"
@@ -48,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="konten" className="flex-1">
             {children}
           </main>
+          <FloatingChatWidget />
           <Footer />
         </Providers>
       </body>

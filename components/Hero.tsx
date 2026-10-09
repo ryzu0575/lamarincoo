@@ -36,7 +36,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
       >
-        Review CV, buat CV yang ramah ATS, dan susun surat lamaran yang meyakinkan. Gratis, tanpa login.
+        Review CV, buat CV ATS-friendly, susun surat lamaran, dan konsultasikan tips wawancara kerja. Gratis, tanpa login.
       </motion.p>
       <motion.div
         className="mt-9 flex flex-wrap justify-center gap-3"
@@ -49,6 +49,9 @@ export default function Hero() {
         </Link>
         <Link href="/buat-cv" className="btn btn-soft">
           Buat CV baru
+        </Link>
+        <Link href="/interview" className="btn btn-soft border border-sky/40 text-sky-strong hover:bg-sky/30">
+          🎙️ Tanya Tips Interview
         </Link>
       </motion.div>
     </section>

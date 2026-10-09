@@ -25,6 +25,13 @@ const features = [
     bg: "bg-peach",
     emoji: "✉️",
   },
+  {
+    href: "/interview",
+    title: "Tanya AI Interview",
+    desc: "Tips lolos wawancara HRD & User, metode STAR, strategi negosiasi gaji, dan simulasi interview interaktif.",
+    bg: "bg-sky",
+    emoji: "🎙️",
+  },
 ];
 
 const steps = [
@@ -48,19 +55,19 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 py-12" aria-labelledby="fitur">
         <Reveal>
           <h2 id="fitur" className="text-center font-display text-3xl font-extrabold">
-            Tiga alat, satu tujuan
+            Solusi Menyeluruh untuk Diterima Kerja
           </h2>
         </Reveal>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f, i) => (
-            <Reveal key={f.href} delay={i * 0.1}>
-              <Link href={f.href} className={`card card-hover block h-full p-7 ${f.bg}`}>
+            <Reveal key={f.href} delay={i * 0.08}>
+              <Link href={f.href} className={`card card-hover block h-full p-6 ${f.bg}`}>
                 <div className="text-4xl" aria-hidden>
                   {f.emoji}
                 </div>
-                <h3 className="mt-4 font-display text-xl font-bold">{f.title}</h3>
+                <h3 className="mt-4 font-display text-lg font-bold">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink">{f.desc}</p>
-                <span className="mt-5 inline-block text-sm font-bold">Coba sekarang →</span>
+                <span className="mt-5 inline-block text-xs font-bold text-ink">Coba sekarang →</span>
               </Link>
             </Reveal>
           ))}

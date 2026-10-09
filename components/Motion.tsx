@@ -84,9 +84,15 @@ export function PageHeader({
 }: {
   title: string;
   subtitle: string;
-  tone: "lavender" | "mint" | "peach" | "lemon";
+  tone: "lavender" | "mint" | "peach" | "lemon" | "sky";
 }) {
-  const bg = { lavender: "bg-lavender", mint: "bg-mint", peach: "bg-peach", lemon: "bg-lemon" }[tone];
+  const bg = {
+    lavender: "bg-lavender",
+    mint: "bg-mint",
+    peach: "bg-peach",
+    lemon: "bg-lemon",
+    sky: "bg-sky",
+  }[tone];
   return (
     <div className={`${bg} px-4 pb-12 pt-12`}>
       <div className="mx-auto max-w-6xl">
