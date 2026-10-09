@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* ===== Design tokens (pastel, WCAG AA text) ===== */
+:root {
+  --bg: #fffaf3;
+  --surface: #ffffff;
+  --surface-2: #fdf6ec;
+  --ink: #1f2a44;
+  --ink-soft: #4a5673;
+  --line: #ece4d8;
+
+  --lavender: #e4dcff;
+  --lavender-strong: #6b54d6;
+  --mint: #d3f5e6;
+  --mint-strong: #14805a;
+  --peach: #ffe0cf;
+  --peach-strong: #b8501f;
+  --sky: #d6ecff;
+  --sky-strong: #1f6fb5;
+  --lemon: #fff6c2;
+  --lemon-strong: #8a6a00;
+  --pink: #ffd9e8;
+  --pink-strong: #b8326b;
+
+  --shadow-soft: 0 10px 30px -12px rgba(60, 50, 110, 0.18);
+  --shadow-lift: 0 18px 40px -14px rgba(60, 50, 110, 0.28);
+  --radius-card: 1.75rem;
+}
+
+.dark {
+  --bg: #14172a;
+  --surface: #1e2238;
+  --surface-2: #252a45;
+  --ink: #eef0fb;
+  --ink-soft: #b4bad6;
+  --line: #333a5c;
+
+  --lavender: #3a3470;
+  --lavender-strong: #cabfff;
+  --mint: #1f4a40;
+  --mint-strong: #8fe8c4;
+  --peach: #5a3a2c;
+  --peach-strong: #ffbf9f;
+  --sky: #243f5e;
+  --sky-strong: #9fd2ff;
+  --lemon: #4f4620;
+  --lemon-strong: #ffe98a;
+  --pink: #5a2c42;
+  --pink-strong: #ffb0d0;
+
+  --shadow-soft: 0 10px 30px -12px rgba(0, 0, 0, 0.5);
+  --shadow-lift: 0 18px 40px -14px rgba(0, 0, 0, 0.6);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-lavender: var(--lavender);
+  --color-lavender-s: var(--lavender-strong);
+  --color-mint: var(--mint);
+  --color-mint-s: var(--mint-strong);
+  --color-peach: var(--peach);
+  --color-peach-s: var(--peach-strong);
+  --color-sky: var(--sky);
+  --color-sky-s: var(--sky-strong);
+  --color-lemon: var(--lemon);
+  --color-lemon-s: var(--lemon-strong);
+  --color-pink: var(--pink);
+  --color-pink-s: var(--pink-strong);
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-jakarta), sans-serif;
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-sora), var(--font-jakarta), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Reusable components */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.7rem 1.4rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s;
+  cursor: pointer;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover:not(:disabled) { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+.btn-soft { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); }
+.btn-soft:hover:not(:disabled) { background: var(--lavender); }
+.input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.95rem;
+}
+.input::placeholder { color: var(--ink-soft); opacity: 0.7; }
+.label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); margin-bottom: 0.3rem; }
+
+:focus-visible {
+  outline: 3px solid var(--lavender-strong);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+.chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  border-radius: 9999px; padding: .2rem .7rem; font-size: .75rem; font-weight: 700;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--lavender) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 1rem;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+.editable:focus { outline: 2px dashed var(--lavender-strong); }
+
+/* Kertas CV selalu terang & memakai font aman ATS, tidak mengikuti tema */
+.cv-page h1, .cv-page h2 { font-family: Arial, Helvetica, sans-serif; letter-spacing: 0; }
+.cv-page p, .cv-page ul { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
